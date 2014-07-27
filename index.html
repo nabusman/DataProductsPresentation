@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Optimizing the Size of the Test Set</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Optimizing the Size of the Test Set">
+  <meta name="author" content="Nabeel Siddiqi">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Optimizing the Size of the Test Set</h1>
+    <h2>Understanding the trade-off between test set sizes</h2>
+    <p>Nabeel Siddiqi<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Training and Test Set Proportions</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>When creating a predictive data model it is commonly recommended that a certain percentage of the data should be set aside for testing the model that we build</li>
+<li>To partion the data into a training and testing set (75/25) it is partioned like this:</li>
+</ul>
+
+<pre><code class="r">library(caret)
+data &lt;- rnorm(100)
+inTraining &lt;- createDataPartition(data, p = 0.75, list = FALSE)
+training &lt;- data[inTraining]
+testing &lt;- data[-inTraining]
+print(length(training))
+</code></pre>
+
+<pre><code>## [1] 76
+</code></pre>
+
+<pre><code class="r">print(length(testing))
+</code></pre>
+
+<pre><code>## [1] 24
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Why Care About Test Size?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The test size needs to be just right for the data that we are using and the model that we are building</li>
+<li>We do not want to set aside too large of a percentage of the data because then we will not be able to build a proper model</li>
+<li>Setting aside too little data will result in not being able to properly test the model</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Magic Formula for Determining Test Size</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>There is no magic formula for determining the test size</li>
+<li>The best way to go about it is to simply treat the test percentage as a tuning parameter and to vary it to figure out the best test size to use</li>
+<li>This is not recommended for real modeling since it voids the idea of not building a model on the test set, we will use this method here to figure out the best test size for our given model</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>The App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The app consists of an input of the percentage of the data to use as the test set</li>
+<li>The output is the accuracy of the model as tested on the test set</li>
+<li>The data used is from the Sonar data from the mlbench package</li>
+<li>The algorithm is Classification and Regression Trees (rpart package)</li>
+<li>Try it out -&gt; <a href="http://nabusman.shinyapps.io/Assn">Here</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Training and Test Set Proportions'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Why Care About Test Size?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Magic Formula for Determining Test Size'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The App'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

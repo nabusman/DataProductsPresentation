@@ -1,0 +1,13 @@
+base
+caret
+datasets
+devtools
+ggplot2
+graphics
+grDevices
+lattice
+methods
+mlbench
+slidify
+stats
+utils

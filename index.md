@@ -1,0 +1,65 @@
+---
+title       : Optimizing the Size of the Test Set
+subtitle    : Understanding the trade-off between test set sizes
+author      : Nabeel Siddiqi
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Training and Test Set Proportions
+
+- When creating a predictive data model it is commonly recommended that a certain percentage of the data should be set aside for testing the model that we build
+- To partion the data into a training and testing set (75/25) it is partioned like this:
+
+
+```r
+library(caret)
+data <- rnorm(100)
+inTraining <- createDataPartition(data, p = 0.75, list = FALSE)
+training <- data[inTraining]
+testing <- data[-inTraining]
+print(length(training))
+```
+
+```
+## [1] 76
+```
+
+```r
+print(length(testing))
+```
+
+```
+## [1] 24
+```
+
+--- .class #id 
+
+## Why Care About Test Size?
+
+- The test size needs to be just right for the data that we are using and the model that we are building
+- We do not want to set aside too large of a percentage of the data because then we will not be able to build a proper model
+- Setting aside too little data will result in not being able to properly test the model
+
+--- .class #id 
+
+## Magic Formula for Determining Test Size
+
+- There is no magic formula for determining the test size
+- The best way to go about it is to simply treat the test percentage as a tuning parameter and to vary it to figure out the best test size to use
+- This is not recommended for real modeling since it voids the idea of not building a model on the test set, we will use this method here to figure out the best test size for our given model
+
+--- .class #id 
+
+## The App
+
+- The app consists of an input of the percentage of the data to use as the test set
+- The output is the accuracy of the model as tested on the test set
+- The data used is from the Sonar data from the mlbench package
+- The algorithm is Classification and Regression Trees (rpart package)
+- Try it out -> [Here](http://nabusman.shinyapps.io/Assn)
